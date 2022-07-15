@@ -17,6 +17,13 @@ limitations under the License.
 
 namespace xla {
 
+#if GOOGLE_CUDA
+  extern const std::string kGPUPlatform = "CUDA"; 
+#elif TENSORFLOW_USE_ROCM
+  extern const std::string kGPUPlatform = "ROCM"; 
+#endif
+
+
 CustomCallTargetRegistry* CustomCallTargetRegistry::Global() {
   static auto* registry = new CustomCallTargetRegistry;
   return registry;

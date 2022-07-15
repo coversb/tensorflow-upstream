@@ -25,6 +25,12 @@ limitations under the License.
 
 namespace xla {
 
+#if GOOGLE_CUDA
+  extern const std::string kGPUPlatform; 
+#elif TENSORFLOW_USE_ROCM
+  extern const std::string kGPUPlatform; 
+#endif
+
 // XLA JIT compilers use this registry to resolve symbolic CustomCall targets;
 // so when using XLA as a JIT, CustomCall targets need to be registered here
 // with the symbol name used in the CustomCall.

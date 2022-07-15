@@ -711,12 +711,6 @@ StatusOr<std::pair<XlaOp, pybind11::object>> PyClient::EmitPythonCallback(
 XLA_CPU_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM("xla_python_cpu_callback",
                                              &XlaPythonCpuCallback);
 
-#if TENSORFLOW_USE_ROCM
-XLA_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM("xla_python_gpu_callback",
-                                         &XlaPythonGpuCallback, "ROCM");
-#elif defined(GOOGLE_CUDA)
-XLA_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM("xla_python_gpu_callback",
-                                         &XlaPythonGpuCallback, "CUDA");
-#endif  // TENSORFLOW_USE_ROCM
-
+XLA_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM(xla_python_gpu_callback,
+                                        &XlaPythonGpuCallback,kGPUPlatform);
 }  // namespace xla

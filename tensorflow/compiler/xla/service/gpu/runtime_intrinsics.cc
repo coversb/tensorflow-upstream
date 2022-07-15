@@ -72,12 +72,6 @@ static void AssertionCustomCall(void* stream_handle, void** buffers,
   }
 }
 
-#if GOOGLE_CUDA
 XLA_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM(kXlaGpuAssertCustomCallTag,
-                                         AssertionCustomCall, "CUDA");
-#else
-XLA_REGISTER_CUSTOM_CALL_TARGET_WITH_SYM(kXlaGpuAssertCustomCallTag,
-                                         AssertionCustomCall, "ROCM");
-#endif
-
+                                          AssertionCustomCall,kGPUPlatform);
 }  // namespace xla
