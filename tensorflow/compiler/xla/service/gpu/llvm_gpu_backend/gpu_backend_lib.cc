@@ -63,6 +63,7 @@ limitations under the License.
 #include "tensorflow/core/platform/env.h"
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/platform/path.h"
+#include "tensorflow/core/platform/rocm_rocdl_path.h"
 #include "tensorflow/core/platform/random.h"
 #include "tensorflow/core/profiler/lib/traceme.h"
 #include "tensorflow/core/util/env_var.h"
@@ -736,7 +737,7 @@ StatusOr<std::vector<uint8_t>> EmitModuleToHsaco(
   // Locate lld.
   // TODO(whchung@gmail.com): change to tensorflow::ROCmRoot() after
   // ROCm-Device-Libs PR.
-  std::string lld_path = tensorflow::io::JoinPath("/opt/rocm", "llvm/bin");
+  std::string lld_path = tensorflow::io::JoinPath(tensorflow::RocmRoot(), "llvm/bin");
   auto lld_program = llvm::sys::findProgramByName("ld.lld", {lld_path});
   if (!lld_program) {
     return xla::InternalError("unable to find ld.lld in %s: %s", lld_path,

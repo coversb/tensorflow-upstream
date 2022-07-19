@@ -28,8 +28,13 @@ namespace tensorflow {
 
 string RocmRoot() {
 #if TENSORFLOW_USE_ROCM
+  #if 1 //Get path from env
+  string rocmPath = getenv("ROCM_PATH");
+  return rocmPath;
+  #else
   VLOG(3) << "ROCM root = " << TF_ROCM_TOOLKIT_PATH;
   return TF_ROCM_TOOLKIT_PATH;
+  #endif
 #else
   return "";
 #endif
